@@ -1,0 +1,31 @@
+resources:
+  - repo: self
+pool:
+  name: OnPrem VS2017
+workspace:
+  clean: all
+name: $(Date:yyyyMMdd)$(Rev:.r)
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+    - azure-pipelines.yml
+    - Tests/*
+variables: 
+  Name: run-oracle-scripts
+steps:
+- task: ms-devlabs.vsts-developer-tools-build-tasks.package-extension-build-task.PackageVSTSExtension@1
+  displayName: 'Package Extension: $(Name)'
+  inputs:
+    extensionVisibility: private
+    extensionPricing: free
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: 'pwshliquori.$(Name)*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'

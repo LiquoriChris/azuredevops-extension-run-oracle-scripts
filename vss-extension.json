@@ -1,0 +1,72 @@
+{
+	"manifestVersion": 1,
+	"id": "run-oracle-scripts",
+	"name": "Run Oracle Database Scripts",
+	"description": "Executes Oracle database scripts using sqlplus commandline tool.",
+	"version": "0.0.1",
+	"publisher": "pwshliquori",
+	"public":  false,
+	"baseUri": "https://github.com/USF-HII",
+	"scopes": [],
+	"tags": [
+		"Oracle",
+		"sql",
+		"sqlplus"
+	],
+	"links": {
+		"home": {
+			"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts"
+		},
+		"learn": {
+			"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts"
+		},
+		"support": {
+			"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts/issues"
+		},
+		"repository": {
+			"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts"
+	},
+	"branding": {
+		"color": "rgb(0, 114, 186)",
+		"theme": "dark"
+	},
+	"targets": [
+		{
+			"id": "Microsoft.VisualStudio.Services"
+		}
+	],
+	"categories": [
+		"Azure Pipelines"
+	],
+	"icons": {
+		"default": "logo.png"
+	},
+	"files": [
+		{ "path": "Task" }
+	],
+	"content": {
+		"details": {
+			"path": "overview.md"
+		},
+		"license": {
+			"path": "license.md"
+		}
+	},
+	"contributions": [
+		{
+			"id": "run-oracle-scripts",
+			"type": "ms.vss-distributed-task.task",
+			"targets": [
+				"ms.vss-distributed-task.tasks"
+			],
+			"properties": {
+				"name": "Task"
+			}
+		}
+	]
+}

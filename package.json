@@ -1,0 +1,11 @@
+{
+  "name": "run-oracle-scripts",
+  "version": "0.0.1",
+  "private": true,
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "vss-web-extension-sdk": "^5.141.0"
+  }
+}
