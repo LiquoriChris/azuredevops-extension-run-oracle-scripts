@@ -13,13 +13,13 @@
 	"version": {
         "Major": "0",
         "Minor": "0",
-        "Patch": "2"
+        "Patch": "3"
 	},
 	"groups": [
-        {
-            "name": "options",
-            "displayName": "Options",
-            "isExpanded": false
+		{
+			"name": "options",
+			"displayName": "Options",
+			"isExpanded": false
 		},
 		{
 			"name": "logging",
@@ -73,8 +73,8 @@
 		{
 			"name": "copy",
 			"type": "boolean",
-			"label": "Copy sql files to Log",
-			"defaultValue": true,
+			"label": "Copy sql files to log",
+			"defaultValue": false,
 			"required": false,
 			"groupName": "logging",
 			"helpMarkDown": "Copy .sql files to the log path."
@@ -82,8 +82,8 @@
 		{
 			"name": "move",
 			"type": "boolean",
-			"label": "Move sql log files to Log",
-			"defaultValue": true,
+			"label": "Move sql log files to log",
+			"defaultValue": false,
 			"required": false,
 			"groupName": "logging",
 			"helpMarkDown": "Move .log files generated from sqlplus to the log path."
