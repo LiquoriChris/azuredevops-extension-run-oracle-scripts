@@ -15,3 +15,5 @@ Task will look for .sql files in a specified directory to run sqlplus against a 
 Sqlplus.exe must be available before running this task.
 
 Run Pester test located under "Tests" folder to verify sqlplus is installed.
+
+If using self-hosted pipelines, a user-defined capability may have to be added to each build server (sqlplus.exe).
