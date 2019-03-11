@@ -5,7 +5,7 @@ $ScriptPath = Get-VstsInput -Name 'scriptPath' -Require
 $User = Get-VstsInput -Name 'user' -Require
 $Password = Get-VstsInput -Name 'password' -Require
 $DatabaseName = Get-VstsInput -Name 'databaseName' -Require
-$LogPath = Get-VstsInput -Name 'logPath' -Require
+$LogPath = Get-VstsInput -Name 'logPath'
 $TopLine = Get-VstsInput -Name 'topLine' -Default true
 $Define = Get-VstsInput -Name 'define' -Default true
 $Echo = Get-VstsInput -Name 'echo' -Default true
@@ -58,8 +58,8 @@ function _Copy {
     }
 }
 
-Try {
-    $SqlPath = (Find-VstsFiles -LegacyPath "$ScriptPath\**.sql" -ErrorAction Stop).FullName
+$SqlPath = Find-VstsFiles -LiteralDirectory $ScriptPath -LegacyPattern **.sql
+if ($SqlPath) {
     Try {
         New-Item -Path env:NLS_LANG -Value .AL32UTF8 -ErrorAction Stop
     }
@@ -68,7 +68,7 @@ Try {
             throw $_
         }
         else {
-            Write-Verbose 'NLS_LANG environment variable already set.'
+            return 'NLS_LANG environment variable already set.'
         }
     }
     foreach ($SqlFile in $SqlPath) {
@@ -100,6 +100,6 @@ Try {
         }
     }
 }
-Catch {
-    throw "No sql files exist at $ScriptPath"
+else {
+    return "No sql files exist at $ScriptPath"
 }
