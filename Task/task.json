@@ -11,16 +11,21 @@
 	],
 	"demands": ["sqlplus.exe"],
 	"version": {
-        "Major": "1",
+        "Major": "0",
         "Minor": "0",
-        "Patch": "0"
+        "Patch": "2"
 	},
 	"groups": [
         {
             "name": "options",
             "displayName": "Options",
             "isExpanded": false
-        }
+		},
+		{
+			"name": "logging",
+			"displayName": "Log Options",
+			"isExpanded": false
+		}
     ],
 	"instanceNameFormat": "Run Oracle Database Scripts",
 	"inputs": [
