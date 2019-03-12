@@ -13,16 +13,16 @@
 	"version": {
         "Major": "0",
         "Minor": "1",
-        "Patch": "0"
+        "Patch": "1"
 	},
 	"groups": [
 		{
-			"name": "options",
-			"displayName": "Options",
+			"name": "sqlPlusOptions",
+			"displayName": "SQLPlus Options",
 			"isExpanded": false
 		},
 		{
-			"name": "logging",
+			"name": "logOptions",
 			"displayName": "Log Options",
 			"isExpanded": false
 		}
@@ -67,7 +67,7 @@
 			"label": "Log Path",
 			"defaultValue": "",
 			"required": false,
-			"groupName": "logging",
+			"groupName": "logOptions",
 			"helpMarkDown": "Path to save the log file after scripts have completed."
 		},
 		{
@@ -76,24 +76,15 @@
 			"label": "Copy sql files to log",
 			"defaultValue": false,
 			"required": false,
-			"groupName": "logging",
+			"groupName": "logOptions",
 			"helpMarkDown": "Copy .sql files to the log path."
-		},
-		{
-			"name": "move",
-			"type": "boolean",
-			"label": "Move sql log files to log",
-			"defaultValue": false,
-			"required": false,
-			"groupName": "logging",
-			"helpMarkDown": "Move .log files generated from sqlplus to the log path."
 		},
 		{
 			"name": "topLine",
 			"type": "boolean",
 			"label": "Add --top line",
 			"defaultValue": true,
-			"groupName": "options",
+			"groupName": "sqlPlusOptions",
 			"helpMarkDown": "Adds --top line to the script."
 		},
 		{
@@ -101,7 +92,7 @@
 			"type": "boolean",
 			"label": "Set define off",
 			"defaultValue": true,
-			"groupName": "options",
+			"groupName": "sqlPlusOptions",
 			"helpMarkDown": "Adds set define off to the script."
 		},
 		{
@@ -109,7 +100,7 @@
 			"type": "boolean",
 			"label": "Set echo on",
 			"defaultValue": true,
-			"groupName": "options",
+			"groupName": "sqlPlusOptions",
 			"helpMarkDown": "Adds set echo on to the script."
 		},
 		{
@@ -117,7 +108,7 @@
 			"type": "boolean",
 			"label": "Set timing on",
 			"defaultValue": true,
-			"groupName": "options",
+			"groupName": "sqlPlusOptions",
 			"helpMarkDown": "Adds set timing on to the script."
 		},
 		{
@@ -125,7 +116,7 @@
 			"type": "boolean",
 			"label": "Exit on sqlerror",
 			"defaultValue": true,
-			"groupName": "options",
+			"groupName": "sqlPlusOptions",
 			"helpMarkDown": "Adds whenever sqlerror exit sql.sqlcode rollback to the script."
 		}
 	],
