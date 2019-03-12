@@ -12,7 +12,6 @@ $Echo = Get-VstsInput -Name 'echo'
 $Timing = Get-VstsInput -Name 'timing'
 $SqlError = Get-VstsInput -Name 'sqlError'
 $Copy = Get-VstsInput -Name 'copy' -Default true
-$Move = Get-VstsInput -Name 'move' -Default true
 
 function Write-File {
     param (
