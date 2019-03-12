@@ -6,11 +6,11 @@ $User = Get-VstsInput -Name 'user' -Require
 $Password = Get-VstsInput -Name 'password' -Require
 $DatabaseName = Get-VstsInput -Name 'databaseName' -Require
 $LogPath = Get-VstsInput -Name 'logPath'
-$TopLine = Get-VstsInput -Name 'topLine' -Default true
-$Define = Get-VstsInput -Name 'define' -Default true
-$Echo = Get-VstsInput -Name 'echo' -Default true
-$Timing = Get-VstsInput -Name 'timing' -Default true
-$SqlError = Get-VstsInput -Name 'sqlError' -Default true
+$TopLine = Get-VstsInput -Name 'topLine'
+$Define = Get-VstsInput -Name 'define'
+$Echo = Get-VstsInput -Name 'echo'
+$Timing = Get-VstsInput -Name 'timing'
+$SqlError = Get-VstsInput -Name 'sqlError'
 $Copy = Get-VstsInput -Name 'copy' -Default true
 $Move = Get-VstsInput -Name 'move' -Default true
 
@@ -20,27 +20,21 @@ function Write-File {
         [ValidateSet('UTF8','Default')]
         [string]$Encoding = 'Default',
         [Parameter(ValueFromPipeline)]
-        [string]$Value
+        [string]$Value,
+        [switch]$Top
     )
-    Try {
-        Add-Content -Path $FilePath -Value $Value -Encoding $Encoding -ErrorAction Stop
-    }
-    Catch {
-        throw $_
-    }
-}
-
-function _Move {
-    param (
-        $Path,
-        $Destination
-    )
-    Try {
-        Move-Item -Path $Source -Destination $Destination -ErrorAction Stop
-    }
-    Catch {
-        Write-Warning "Could not move $Source to $Destination"
-        $_
+    Process {
+        Try {
+            if ($Top) {
+                $($Value; Get-Content $FilePath -ErrorAction Stop) |Out-File -FilePath $FilePath -Encoding $Encoding
+            }
+            else {
+                $(Get-Content -Path $FilePath; $Value) |Out-File -FilePath $FilePath -Encoding $Encoding
+            }
+        }
+        Catch {
+            throw $_
+        }
     }
 }
 
@@ -71,32 +65,29 @@ if ($SqlPath) {
             return 'NLS_LANG environment variable already set.'
         }
     }
-    foreach ($SqlFile in $SqlPath) {
-        Write-Output "spool $($SqlFile).log" |Write-File -FilePath "$($SqlFile).run"
-        if ($TopLine) {
-            Write-Output "-- top line" |Write-File -FilePath "$($SqlFile).run"
-        }
-        if ($Define) {
-            Write-Output "set define off;" |Write-File -FilePath "$($SqlFile).run"
-        }
-        if ($Echo) {
-            Write-Output "set echo on;" |Write-File -FilePath "$($SqlFile).run"
+    foreach ($SqlFile in $SqlPath) {	
+        if ($SqlError) {
+            Write-Output "whenever sqlerror exit sql.sqlcode rollback;" |Write-File -FilePath $SqlFile -Top
         }
         if ($Timing) {
-            Write-Output "set timing on;" |Write-File -FilePath "$($SqlFile).run"
-        }			
-        if ($SqlError) {
-            Write-Output "whenever sqlerror exit sql.sqlcode rollback;" |Write-File -FilePath "$($SqlFile).run"
+            Write-Output "set timing on;" |Write-File -FilePath $SqlFile -Top
+        }	
+        if ($Echo) {
+            Write-Output "set echo on;" |Write-File -FilePath $SqlFile -Top
         }
-        Get-Content "$($SqlFile)" |Write-File -FilePath "$($SqlFile).run" -Encoding UTF8
-        Write-Output "spool off" |Write-File -FilePath "$($SqlFile).run"
-        Write-Output "exit" |Write-File -FilePath "$($SqlFile).run"
-        sqlplus "$User/$Password@$DatabaseName" "@$($SqlFile).run"
+        if ($Define) {
+            Write-Output "set define off;" |Write-File -FilePath $SqlFile -Top 
+        }
+        if ($TopLine) {
+            Write-Output "-- top line" |Write-File -FilePath $SqlFile -Top
+        }
+        Write-Output "spool $($SqlFile).log" |Write-File -FilePath $SqlFile -Top
+        Write-Output "spool off" |Write-File -FilePath $SqlFile
+        Write-Output "exit" |Write-File -FilePath $SqlFile	
+        sqlplus "$User/$Password@$DatabaseName" "@$($SqlFile)"
         if ($Copy) {
             _Copy -Path $SqlFile -Destination $LogPath
-        }
-        if ($Move) {
-            _Move -Path "$($SqlFile).log" -Destination $LogPath
+            _Copy -Path "$($SqlFile).log" -Destination $LogPath
         }
     }
 }
