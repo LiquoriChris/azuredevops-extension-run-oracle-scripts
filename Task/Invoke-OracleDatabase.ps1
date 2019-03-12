@@ -42,8 +42,16 @@ function _Copy {
         $Path,
         $Destination
     )
+    if (-Not (Test-Path -Path $Destination)) {
+        Try {
+            New-Item -Path $Destination -ItemType Directory -ErrorAction Stop
+        }
+        Catch {
+            throw $_
+        }
+    }
     Try {
-        Copy-Item -Path $Path -Destination $Destination -ErrorAction Stop
+        Copy-Item -Path $Path -Destination $Destination -Recurse -ErrorAction Stop
     }
     Catch {
         Write-Warning "Could not copy $Path to $Destination"
