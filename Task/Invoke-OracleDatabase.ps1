@@ -85,9 +85,15 @@ if ($SqlPath) {
         Write-Output "spool off" |Write-File -FilePath $SqlFile
         Write-Output "exit" |Write-File -FilePath $SqlFile	
         sqlplus "$User/$Password@$DatabaseName" "@$($SqlFile)"
-        if ($Copy) {
-            _Copy -Path $SqlFile -Destination $LogPath
+        if ($LogPath) {
             _Copy -Path "$($SqlFile).log" -Destination $LogPath
+            if ($Copy) {
+                _Copy -Path $SqlFile -Destination $LogPath
+            }
+        }
+        else {
+            Write-VstsTaskWarning -Message "No log path specified." 
+            Write-VstsTaskWarning -Message "Log files are located: $ScriptPath"
         }
     }
 }
