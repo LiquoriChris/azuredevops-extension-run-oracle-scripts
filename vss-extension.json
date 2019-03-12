@@ -3,7 +3,7 @@
 	"id": "run-oracle-scripts",
 	"name": "Run Oracle Database Scripts",
 	"description": "Executes Oracle database scripts using sqlplus commandline tool.",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"publisher": "pwshliquori",
 	"public":  false,
 	"baseUri": "https://github.com/USF-HII",
