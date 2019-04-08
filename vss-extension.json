@@ -6,7 +6,7 @@
 	"version": "1.0.1",
 	"publisher": "pwshliquori",
 	"public":  true,
-	"baseUri": "https://github.com/USF-HII",
+	"baseUri": "https://github.com/pwshliquori",
 	"scopes": [],
 	"tags": [
 		"Oracle",
@@ -15,21 +15,21 @@
 	],
 	"links": {
 		"home": {
-			"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts"
+			"uri": "https://github.com/pwshliquori/azuredevops-extension-run-oracle-scripts"
 		},
 		"learn": {
-			"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts"
+			"uri": "https://github.com/pwshliquori/azuredevops-extension-run-oracle-scripts"
 		},
 		"support": {
-			"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts/issues"
+			"uri": "https://github.com/pwshliquori/azuredevops-extension-run-oracle-scripts/issues"
 		},
 		"repository": {
-			"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts"
+			"uri": "https://github.com/pwshliquori/azuredevops-extension-run-oracle-scripts"
 		}
 	},
 	"repository": {
 		"type": "git",
-		"uri": "https://github.com/USF-HII/azuredevops-extension-run-oracle-scripts"
+		"uri": "https://github.com/pwshliquori/azuredevops-extension-run-oracle-scripts"
 	},
 	"branding": {
 		"color": "rgb(0, 114, 186)",
