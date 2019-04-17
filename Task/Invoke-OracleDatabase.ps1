@@ -12,6 +12,7 @@ $Echo = Get-VstsInput -Name 'echo'
 $Timing = Get-VstsInput -Name 'timing'
 $SqlError = Get-VstsInput -Name 'sqlError'
 $OraError = Get-VstsInput -Name 'failOnOraError'
+$NullFilesError = Get-VstsInput -Name 'failOnNullFiles'
 $Copy = Get-VstsInput -Name 'copy' -Default true
 
 . $PSScriptRoot\HelperFunctions.ps1
@@ -67,5 +68,10 @@ if ($SqlPath) {
     }
 }
 else {
-    return "No sql files exist at $ScriptPath"
+    if ($NullFilesError -eq 'true') {
+        throw "No sql files exist at $ScriptPath"
+    }
+    else {
+        return "No sql files exist at $ScriptPath"
+    }
 }
