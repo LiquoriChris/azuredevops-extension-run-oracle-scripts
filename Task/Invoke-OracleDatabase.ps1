@@ -11,6 +11,7 @@ $Define = Get-VstsInput -Name 'define'
 $Echo = Get-VstsInput -Name 'echo'
 $Timing = Get-VstsInput -Name 'timing'
 $SqlError = Get-VstsInput -Name 'sqlError'
+$OraError = Get-VstsInput -Name 'failOnOraError'
 $Copy = Get-VstsInput -Name 'copy' -Default true
 
 . $PSScriptRoot\HelperFunctions.ps1
@@ -48,6 +49,11 @@ if ($SqlPath) {
         Write-Output "spool off" |Write-File -FilePath $SqlFile
         Write-Output "exit" |Write-File -FilePath $SqlFile	
         sqlplus "$User/$Password@$DatabaseName" "@$($SqlFile)"
+        if ($OraError) {
+            if ($LASTEXITCODE -ne 0) {
+                throw "An error has occured in $SqlFile. Please check the logs for error."
+            }
+        }
         if ($LogPath) {
             _Copy -Path "$($SqlFile).log" -Destination $LogPath
             if ($Copy) {
