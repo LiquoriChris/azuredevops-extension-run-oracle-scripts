@@ -12,8 +12,8 @@
 	"demands": ["sqlplus.exe"],
 	"version": {
         "Major": "1",
-        "Minor": "0",
-        "Patch": "2"
+        "Minor": "1",
+        "Patch": "0"
 	},
 	"groups": [
 		{
@@ -118,7 +118,16 @@
 			"defaultValue": true,
 			"groupName": "sqlPlusOptions",
 			"helpMarkDown": "Adds whenever sqlerror exit sql.sqlcode rollback to the script."
-		}
+		},
+		{
+            "name": "failOnOraError",
+            "type": "boolean",
+            "label": "Fail on ORA- Error",
+            "required": false,
+            "defaultValue": "false",
+            "helpMarkDown": "If this is true, this task will fail if a ORA- error occurs and the $LASTEXITCODE is not 0.",
+            "groupName": "sqlPlusOptions"
+        }
 	],
 	"execution": {
 		"PowerShell3": {
