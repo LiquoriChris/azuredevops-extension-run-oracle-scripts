@@ -49,7 +49,7 @@ if ($SqlPath) {
         Write-Output "spool off" |Write-File -FilePath $SqlFile
         Write-Output "exit" |Write-File -FilePath $SqlFile	
         sqlplus "$User/$Password@$DatabaseName" "@$($SqlFile)"
-        if ($OraError) {
+        if ($OraError -eq 'true') {
             if ($LASTEXITCODE -ne 0) {
                 throw "An error has occured in $SqlFile. Please check the logs for error."
             }
